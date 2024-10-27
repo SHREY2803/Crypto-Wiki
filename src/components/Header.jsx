@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { dark } from "@mui/material/styles/createPalette";
+
 
 
 const useStyles = makeStyles(() => ({
@@ -40,7 +40,7 @@ const darkTheme = createTheme({
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <Appbar color="tranparent" position="static">
+    <Appbar color="transparent" position="static">
       <Container>
         <Toolbar>
           <Typography onClick={handleTitleClick} className={classes.title}
@@ -50,7 +50,7 @@ const darkTheme = createTheme({
             style={{ 
               width: 100, 
               height: 40, 
-              marginLeft: 15, }}
+              marginRight: 15, }}
           >
             <MenuItem value={"USD"}>USD</MenuItem>
             <MenuItem value={"INR"}>INR </MenuItem>
