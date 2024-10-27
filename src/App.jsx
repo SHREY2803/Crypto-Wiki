@@ -6,16 +6,15 @@ import HomePage from './Pages/HomePage.jsx';
 import { makeStyles } from '@mui/styles';
 import CoinsPage from './Pages/CoinsPage.jsx';
 
-
 const useStyles = makeStyles(() => ({
   App: {
     backgroundColor: "#14161a",
-    color:"white",
+    color: "white",
     minHeight: "100vh",
   },
 }));
-function App() {
 
+function App() {
   const classes = useStyles();
 
   return (
@@ -24,8 +23,6 @@ function App() {
         <Header />
         <Routes> 
           <Route path="/" element={<HomePage />} /> 
-        </Routes>
-        <Routes> 
           <Route path="/coins/:id" element={<CoinsPage />} /> 
         </Routes>
       </div>
