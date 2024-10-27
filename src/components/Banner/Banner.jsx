@@ -4,6 +4,7 @@ import React from 'react';
 import Typography from "@mui/material/Typography";
 import CrypToImg from "../../assets/crypto_bg_img.jpg"; 
 import SecondImg from "../../assets/banner2.jpg"
+import Carousel from "../Carousel";
 
 const useStyles = makeStyles(() => ({
   banner: {
@@ -58,6 +59,7 @@ const Banner = () => {
             Get all the Info regarding your favorite Crypto Currency
           </Typography>
         </div>
+        <Carousel />
       </Container>
     </div>
   );
