@@ -8,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CryptoState } from "../CryptoContext";
 
 
 
@@ -24,6 +25,9 @@ const useStyles = makeStyles(() => ({
 const Header = () => {
 const classes = useStyles();
 const navigate = useNavigate(); 
+
+const {currency,setCurrency} = CryptoState();
+
 
 const handleTitleClick = () => {
   navigate('/');
@@ -51,6 +55,8 @@ const darkTheme = createTheme({
               width: 100, 
               height: 40, 
               marginRight: 15, }}
+              value={currency}
+              onChange={(e)=>setCurrency(e.target.value)}
           >
             <MenuItem value={"USD"}>USD</MenuItem>
             <MenuItem value={"INR"}>INR </MenuItem>
