@@ -22,11 +22,11 @@ function App() {
     <BrowserRouter>
       <div className={classes.App}>
         <Header />
-        <Routes> {/* Wrap Route inside Routes */}
-          <Route path="/" element={<HomePage />} exact/> {/* Use element prop instead of component */}
+        <Routes> 
+          <Route path="/" element={<HomePage />} /> 
         </Routes>
-        <Routes> {/* Wrap Route inside Routes */}
-          <Route path="/coins" element={<CoinsPage />} /> {/* Use element prop instead of component */}
+        <Routes> 
+          <Route path="/coins/:id" element={<CoinsPage />} /> 
         </Routes>
       </div>
     </BrowserRouter>
