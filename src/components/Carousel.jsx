@@ -33,11 +33,17 @@ const Carousel = () => {
 
   const { currency, symbol } = CryptoState();
   const fetchCoins = async () => {
-    const { data } = await axios.get(TrendingCoins(currency));
-
-    setTrending(data);
+    const options = {
+      method: 'GET',
+      headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-15RHg87yyjPmx8bJg1dg8cYc'}
+    };
+    
+    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=gecko_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`, options)
+      .then(res => res.json())
+      .then(res => setTrending(res))
+      .catch(err => console.error(err));
   };
-//   console.log(trending);
+  // console.log(trending);
   // console.log(data);
 
   useEffect(() => {
