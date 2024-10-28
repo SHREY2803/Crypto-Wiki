@@ -220,7 +220,7 @@ const CoinsTable = () => {
           page={page}
           sx={{
             '& .MuiPaginationItem-root': {
-              color: 'gold',git 
+              color: 'gold',
             },
           }}
           onChange={(_, value) => {
