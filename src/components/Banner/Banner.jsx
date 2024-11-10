@@ -1,22 +1,22 @@
 import { makeStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
-import React from 'react';
+import React from "react";
 import Typography from "@mui/material/Typography";
-import CrypToImg from "../../assets/crypto_bg_img.jpg"; 
-import SecondImg from "../../assets/banner2.jpg"
+import CrypToImg from "../../assets/crypto_bg_img.jpg";
+import SecondImg from "../../assets/banner2.jpg";
 import Carousel from "../Carousel";
 
 const useStyles = makeStyles(() => ({
   banner: {
-    backgroundImage: `url(${SecondImg})`, 
+    backgroundImage: `url(${SecondImg})`,
   },
 
-  bannerContent:{
-    height: 400, 
+  bannerContent: {
+    height: 400,
     display: "flex",
-    flexDirection:"column",
-    paddingTop:25,
-    justifyContent:"space-around", 
+    flexDirection: "column",
+    paddingTop: 25,
+    justifyContent: "space-around",
   },
   tagline: {
     display: "flex",
@@ -38,7 +38,7 @@ const Banner = () => {
     <div className={classes.banner}>
       <Container className={classes.bannerContent}>
         <div className={classes.tagline}>
-        <Typography
+          <Typography
             variant="h2"
             style={{
               fontWeight: "bold",
