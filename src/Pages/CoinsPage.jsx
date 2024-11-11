@@ -40,31 +40,34 @@ const CoinsPage = () => {
   const { id } = useParams();
   const [coins, setCoins] = useState();
   const { currency, symbol } = CryptoState();
+  const [loading, setLoading] = useState(false);
 
-  const fetchCoinData = async () => {
+  const fetchCoinData = async() => {
+    setLoading(true);
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
-        "x-cg-demo-api-key": "CG-15RHg87yyjPmx8bJg1dg8cYc",
+        'x-cg-demo-api-key': 'CG-15RHg87yyjPmx8bJg1dg8cYc',
       },
     };
-
-    try {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${id}`,
-        options
-      );
-      const data = await response.json();
-      setCoins(data);
-    } catch (error) {
-      console.error("Error fetching coin data:", error);
-    }
+  
+    fetch(`https://api.coingecko.com/api/v3/coins/${id}`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        setCoins(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching coin data:", error);
+        setLoading(false);
+      });
   };
-
+  
   useEffect(() => {
     fetchCoinData();
-  }, [id]);
+  }, [id, currency]);
+  
 
   // console.log(coins);
 
