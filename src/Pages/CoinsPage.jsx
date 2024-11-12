@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { numberWithCommas } from "../components/Carousel";
 import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const theme = createTheme();
 
@@ -18,16 +19,25 @@ const Container = styled("div")(({ theme }) => ({
   },
 }));
 
-const Sidebar = styled("div")({
+const Sidebar = styled("div")(({ theme }) => ({
   width: "30%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   marginTop: 25,
   borderRight: "2px solid grey",
+  padding: "20px",
   [theme.breakpoints.down("md")]: {
     width: "100%",
+    borderRight: "none",
   },
+}));
+
+const LoadingContainer = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%", // Fill the height of the sidebar
 });
 
 const CoinName = styled("div")({
@@ -38,155 +48,151 @@ const CoinName = styled("div")({
 
 const CoinsPage = () => {
   const { id } = useParams();
-  const [coins, setCoins] = useState();
+  const [coins, setCoins] = useState(null);
   const { currency, symbol } = CryptoState();
   const [loading, setLoading] = useState(false);
 
-  const fetchCoinData = async() => {
+  const fetchCoinData = async () => {
     setLoading(true);
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        'x-cg-demo-api-key': 'CG-15RHg87yyjPmx8bJg1dg8cYc',
-      },
-    };
-  
-    fetch(`https://api.coingecko.com/api/v3/coins/${id}`, options)
-      .then((response) => response.json())
-      .then((data) => {
-        setCoins(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching coin data:", error);
-        setLoading(false);
-      });
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/${id}`,
+        {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            "x-cg-demo-api-key": "CG-fHZvEiW4N7f9vTgL9VGK4uaj",
+          },
+        }
+      );
+      const data = await response.json();
+      setCoins(data);
+    } catch (error) {
+      console.error("Error fetching coin data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-  
+
   useEffect(() => {
     fetchCoinData();
   }, [id, currency]);
-  
 
-  // console.log(coins);
+  if (loading)
+    return (
+      <ThemeProvider theme={theme}>
+        <Sidebar>
+          <LoadingContainer>
+            <CircularProgress color="success" />
+          </LoadingContainer>
+        </Sidebar>
+      </ThemeProvider>
+    );
 
   if (!coins) return <LinearProgress style={{ backgroundColor: "gold" }} />;
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Container>
-          <Sidebar>
-            <img
-              src={coins?.image.large}
-              alt={coins?.name}
-              style={{ marginBottom: 20 }}
-              height="200"
-            />
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Sidebar>
+          <img
+            src={coins.image?.large}
+            alt={coins.name}
+            style={{ marginBottom: 20 }}
+            height="200"
+          />
 
-            <Typography variant="h3">
-              <CoinName>{coins?.name}</CoinName>
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{
-                width: "100%", // Ensure full width for small devices
-                fontFamily: "Rubik, sans-serif", // Font style
-                padding: "15px", // Padding for small screens
-                paddingTop: "10px", // Top padding
-                paddingBottom: "15px", // Bottom padding
-                textAlign: "justify", // Justify the text alignment
-                marginBottom: "20px", // Space between elements (for readability)
-                lineHeight: 1.6, // Improve line height for readability
-              }}
-              dangerouslySetInnerHTML={{
-                __html: coins?.description.en.split(". ")[0],
-              }}
-            />
+          <Typography variant="h3">
+            <CoinName>{coins.name}</CoinName>
+          </Typography>
 
-            <div
-              sx={{
-                alignSelf: "center",
-                padding: 15,
-                paddingTop: 10,
-                width: "100%",
-                [theme.breakpoints.down("md")]: {
-                  display: "flex",
-                  justifyContent: "space-around",
-                },
-                [theme.breakpoints.down("sm")]: {
-                  flexDirection: "column",
-                  alignItems: "center",
-                },
-                [theme.breakpoints.down("xs")]: {
-                  alignItems: "start",
-                },
-              }}
-            >
-              <span style={{ display: "flex" }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: "bold",
-                    marginBottom: 3,
-                    fontFamily: "Rubik",
-                  }}
-                >
-                  Rank:
-                </Typography>
-                &nbsp; &nbsp;
-                <Typography variant="h5" style={{ fontFamily: "Rubik" }}>
-                  {coins?.market_cap_rank}
-                </Typography>
-              </span>
-              <span style={{ display: "flex" }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: "bold",
-                    marginBottom: 3,
-                    fontFamily: "Rubik",
-                  }}
-                >
-                  Current Price:
-                </Typography>
-                &nbsp; &nbsp;
-                <Typography variant="h5" style={{ fontFamily: "Rubik" }}>
-                  {symbol}{" "}
-                  {numberWithCommas(
-                    coins?.market_data.current_price[currency.toLowerCase()]
-                  )}
-                </Typography>
-              </span>
-              <span style={{ display: "flex" }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: "bold",
-                    marginBottom: 3,
-                    fontFamily: "Rubik",
-                  }}
-                >
-                  Market Cap:
-                </Typography>
-                &nbsp; &nbsp;
-                <Typography variant="h5" style={{ fontFamily: "Rubik" }}>
-                  {symbol}{" "}
-                  {numberWithCommas(
-                    coins?.market_data.market_cap[currency.toLowerCase()]
-                      .toString()
-                      .slice(0, -6)
-                  )}{" "}
-                  M
-                </Typography>
-              </span>
-            </div>
-          </Sidebar>
-          <CoinChart coin={coins} />
-        </Container>
-      </ThemeProvider>
-    </>
+          <Typography
+            variant="subtitle1"
+            style={{
+              width: "100%",
+              fontFamily: "Rubik, sans-serif",
+              padding: "15px",
+              paddingTop: "10px",
+              paddingBottom: "15px",
+              textAlign: "justify",
+              marginBottom: "20px",
+              lineHeight: 1.6,
+            }}
+            dangerouslySetInnerHTML={{
+              __html: coins.description?.en?.split(". ")[0] || "",
+            }}
+          />
+
+          <div
+            style={{
+              alignSelf: "center",
+              padding: 15,
+              paddingTop: 10,
+              width: "100%",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "15px",
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <Typography
+                variant="h5"
+                style={{
+                  fontWeight: "bold",
+                  fontFamily: "Rubik",
+                }}
+              >
+                Rank:
+              </Typography>
+              &nbsp; &nbsp;
+              <Typography variant="h5" style={{ fontFamily: "Rubik" }}>
+                {coins.market_cap_rank}
+              </Typography>
+            </span>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <Typography
+                variant="h5"
+                style={{
+                  fontWeight: "bold",
+                  fontFamily: "Rubik",
+                }}
+              >
+                Current Price:
+              </Typography>
+              &nbsp; &nbsp;
+              <Typography variant="h5" style={{ fontFamily: "Rubik" }}>
+                {symbol}{" "}
+                {numberWithCommas(
+                  coins.market_data?.current_price[currency.toLowerCase()] || 0
+                )}
+              </Typography>
+            </span>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <Typography
+                variant="h5"
+                style={{
+                  fontWeight: "bold",
+                  fontFamily: "Rubik",
+                }}
+              >
+                Market Cap:
+              </Typography>
+              &nbsp; &nbsp;
+              <Typography variant="h5" style={{ fontFamily: "Rubik" }}>
+                {symbol}{" "}
+                {numberWithCommas(
+                  (coins.market_data?.market_cap[currency.toLowerCase()] || 0)
+                    .toString()
+                    .slice(0, -6)
+                )}{" "}
+                M
+              </Typography>
+            </span>
+          </div>
+        </Sidebar>
+        <CoinChart coin={coins} />
+      </Container>
+    </ThemeProvider>
   );
 };
 
