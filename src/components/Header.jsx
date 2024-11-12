@@ -6,11 +6,10 @@ import Typography from "@mui/material/Typography";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
-import { useNavigate } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CryptoState } from "../CryptoContext";
-
-
+import LoginPage from "./Authentication/LoginPage";
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -18,52 +17,59 @@ const useStyles = makeStyles(() => ({
     color: "gold",
     fontFamily: "Rubik",
     fontWeight: "bolder",
-    cursor:"pointer",
+    cursor: "pointer",
   },
 }));
 
 const Header = () => {
-const classes = useStyles();
-const navigate = useNavigate(); 
+  const classes = useStyles();
+  const navigate = useNavigate();
 
-const {currency,setCurrency} = CryptoState();
+  const { currency, setCurrency, user } = CryptoState();
 
+  const handleTitleClick = () => {
+    navigate("/");
+  };
 
-const handleTitleClick = () => {
-  navigate('/');
-};
-
-const darkTheme = createTheme({
-  palette: {
-    primary:{
-      main:"#fff",
+  const darkTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#fff",
+      },
+      mode: "dark",
     },
-    mode:"dark",
-  },
-});
+  });
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <Appbar color="transparent" position="static">
-      <Container>
-        <Toolbar>
-          <Typography onClick={handleTitleClick} className={classes.title}
-          variant="h6">Crypto Hunter</Typography>
-          <Select
-            variant="outlined"
-            style={{ 
-              width: 100, 
-              height: 40, 
-              marginRight: 15, }}
+      <Appbar color="transparent" position="static">
+        <Container>
+          <Toolbar>
+            <Typography
+              onClick={handleTitleClick}
+              className={classes.title}
+              variant="h6"
+            >
+              Crypto Hunter
+            </Typography>
+            <Select
+              variant="outlined"
+              style={{
+                width: 100,
+                height: 40,
+                marginRight: 15,
+              }}
               value={currency}
-              onChange={(e)=>setCurrency(e.target.value)}
-          >
-            <MenuItem value={"USD"}>USD</MenuItem>
-            <MenuItem value={"INR"}>INR </MenuItem>
-          </Select>
-        </Toolbar>
-      </Container>
-    </Appbar>
+              onChange={(e) => setCurrency(e.target.value)}
+            >
+              <MenuItem value={"USD"}>USD</MenuItem>
+              <MenuItem value={"INR"}>INR </MenuItem>
+            </Select>
+
+            {user ? "Logout" : <LoginPage />}
+          </Toolbar>
+        </Container>
+      </Appbar>
     </ThemeProvider>
   );
 };
