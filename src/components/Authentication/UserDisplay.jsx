@@ -13,6 +13,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import { CryptoState } from "../../CryptoContext";
 import Avatar from "@mui/material/Avatar";
 import { makeStyles } from "@mui/styles";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 const useStyles = makeStyles({
   contanier: {
@@ -31,14 +33,31 @@ const useStyles = makeStyles({
     gap:"15px",
     height:"90%"
   },
-  picture:{
-    width:200,
-    height:100,
-    cursor:"pointer",
-    backgroundColor:"#1B8E2D",
-    objectFit:"contain",
+  logout: {
+    height:"10%",
+    width:"100%",
+    marginTop:20,
   },
+  watchlist: {
+    backgroundColor:"grey",
+    width:"100%",
+    height:"80%",
+    borderRadius:10,
+    padding:15,
+    paddingTop:10,
+    flex:1,
+    display:"flex",
+    flexDirection:"column",
+    alignItems:"center",
+    gap:10,
+    overflowY:"auto",
+    overflowX:"hidden",
+    marginBottom:10,
+
+  }
 });
+
+
 
 export default function UserDisplay() {
   const [state, setState] = React.useState({
@@ -46,7 +65,17 @@ export default function UserDisplay() {
   });
   const classes = useStyles();
 
-  const { user } = CryptoState();
+  const { user, setAlert } = CryptoState();
+
+  const logout = ()=>{
+    signOut(auth);
+
+    setAlert({
+      open:true,
+      type:"success",
+      message:"User Logged Out "
+    })
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -104,7 +133,24 @@ export default function UserDisplay() {
                 }}>
                     {user.displayName||user.email}
                 </span> 
+                <div
+                className={classes.watchlist}>
+                  <span style={{fontSize:16,
+                    textShadow:"0 0 5px black"
+                  }}>Watchlist</span>
+                </div>
               </div>
+              <Button
+              variant="contained"
+              className={classes.logout }
+              style={{
+                backgroundColor:"#FF6961",
+                fontWeight:"bold",
+                fontSize:16,
+                color:"white"
+
+              }}
+              onClick={logout}>Log Out</Button>
             </div>
           </Drawer>
         </React.Fragment>
