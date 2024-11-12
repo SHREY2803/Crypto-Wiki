@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CryptoState } from "../CryptoContext";
 import LoginPage from "./Authentication/LoginPage";
+import UserDisplay from "./Authentication/UserDisplay";
+
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -66,7 +68,7 @@ const Header = () => {
               <MenuItem value={"INR"}>INR </MenuItem>
             </Select>
 
-            {user ? "Logout" : <LoginPage />}
+            {user ? <UserDisplay /> : <LoginPage />}
           </Toolbar>
         </Container>
       </Appbar>
