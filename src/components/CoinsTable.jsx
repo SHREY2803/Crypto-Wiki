@@ -219,8 +219,8 @@ const CoinsTable = () => {
           count={Math.max(Math.ceil(handleSearch()?.length / 10), 1)}
           page={page}
           sx={{
-            '& .MuiPaginationItem-root': {
-              color: 'gold',
+            "& .MuiPaginationItem-root": {
+              color: "gold",
             },
           }}
           onChange={(_, value) => {
