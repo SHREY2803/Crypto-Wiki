@@ -26,7 +26,7 @@ const style = {
 
 export default function TransitionsModal() {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(0); // Add this line for tab value
+  const [value, setValue] = React.useState(0); 
 
 //   console.log(value);
   
