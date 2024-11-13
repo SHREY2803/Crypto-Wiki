@@ -7,6 +7,9 @@ import Typography from "@mui/material/Typography";
 import { numberWithCommas } from "../components/Carousel";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Button } from "@mui/material";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 const theme = createTheme();
 
@@ -49,7 +52,7 @@ const CoinName = styled("div")({
 const CoinsPage = () => {
   const { id } = useParams();
   const [coins, setCoins] = useState(null);
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol, user, watchlist, setAlert } = CryptoState();
   const [loading, setLoading] = useState(false);
 
   const fetchCoinData = async () => {
@@ -71,6 +74,30 @@ const CoinsPage = () => {
       console.error("Error fetching coin data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const inWatchList =watchlist.includes(coins?.id);
+
+  const addWatchlist = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try {
+      await setDoc(coinRef, {
+        coins: watchlist ? [...watchlist, coins?.id] : [coins?.id],
+      });
+
+      setAlert({
+        open:true,
+        message:`${coins.name} Added to Watchlist !`,
+        type:"success"
+      })
+    } catch (error) {
+      setAlert({
+        open:true,
+        message:error.message,
+        type:"error"
+      })
     }
   };
 
@@ -188,6 +215,20 @@ const CoinsPage = () => {
                 M
               </Typography>
             </span>
+            {user && (
+              <Button
+                variant="outlined"
+                style={{
+                  width: "100%",
+                  height: 40,
+                  backgroundColor: "yellow",
+                  color: "black",
+                }}
+                onClick={addWatchlist}
+              >
+                {inWatchList?"Remove from WatchList":"Add to WatchList"}
+              </Button>
+            )}
           </div>
         </Sidebar>
         <CoinChart coin={coins} />
