@@ -14,6 +14,7 @@ const CryptoContext = ({children}) => {
     message:"",
     type:"success",
   });
+  const [watchlist,setWatchList] = useState([]);
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user)=>{
@@ -33,7 +34,7 @@ const CryptoContext = ({children}) => {
   },[currency])
 
   return (
-    <Crypto.Provider value={{currency,symbol,setCurrency, alert, setAlert, user}}>
+    <Crypto.Provider value={{currency,symbol,setCurrency, alert, setAlert, user, watchlist}}>
         {children}
     </Crypto.Provider>
   )
