@@ -34,12 +34,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CoinsTable = () => {
-  const [coins, setCoins] = useState([]);
-  const [loading, setLoading] = useState(false);
+  
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol, coins, loading, setCoins, setLoading } = CryptoState();
 
   const classes = useStyles();
 
