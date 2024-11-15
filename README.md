@@ -42,6 +42,6 @@ npm install
 ```powershell
 http://localhost:3000
 ```
-##ScreenShot Preview
+## ScreenShot Preview
 
 ![CryptoWiki Screenshot](assets/front_page_screenshot_img.png)
