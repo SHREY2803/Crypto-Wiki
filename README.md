@@ -45,3 +45,8 @@ http://localhost:3000
 ## ScreenShot Preview
 
 ![CryptoWiki Screenshot](assets/front_page_screenshot_img.png)
+
+## 🌟 Feedback and Contributions
+Feel free to contribute to this project or share your feedback! You can fork the repo or open an issue.
+
+Let me know if you’d like further customization! 🚀
