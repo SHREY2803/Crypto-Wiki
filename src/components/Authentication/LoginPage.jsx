@@ -11,7 +11,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { makeStyles } from "@mui/styles";
 import GoogleButton from "react-google-button";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { CryptoState } from "../../CryptoContext";
 
@@ -67,10 +67,11 @@ export default function TransitionsModal() {
   const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then((res) => {
+        console.log("User Info:", res.user); // Log the user object
         setAlert({
           open: true,
           message: `Sign In successful. Welcome ${res.user.email}`,
-          type:"success",
+          type: "success"
         });
         setProfilePic(res.user.photoURL);  // Set profile picture URL
         handleClose();
@@ -83,6 +84,18 @@ export default function TransitionsModal() {
         });
       });
   };
+
+  // Use onAuthStateChanged to check if user is already signed in
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setProfilePic(user.photoURL); // Set profile picture if user is signed in
+      } else {
+        setProfilePic(null); // Clear profile picture if user signs out
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div>
