@@ -23,18 +23,18 @@ A sleek and interactive platform to track real-time cryptocurrency prices and vi
 ## 🚀 How to Run Locally  
 
 1. Clone the repository:  
-   ```powershell
+```powershell
         git clone https://github.com/your-username/cryptowiki.git
         cd cryptowiki
 
 2.Install dependencies:
-    ```powershell
-        npm install
+```powershell
+npm install
 
 3.Start the development server:
-    ```powershell
-        npm install
+```powershell
+npm install
 
 4.Open your browser and navigate to:
-    ```powershell
-        http://localhost:3000
+```powershell
+http://localhost:3000
