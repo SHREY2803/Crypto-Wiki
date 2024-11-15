@@ -46,7 +46,7 @@ const Banner = () => {
               fontFamily: "Rubik",
             }}
           >
-            Crypto Hunter
+            Crypto Atlas
           </Typography>
           <Typography
             variant="subtitle1"
@@ -56,7 +56,7 @@ const Banner = () => {
               fontFamily: "Rubik",
             }}
           >
-            Get all the Info regarding your favorite Crypto Currency
+            Gather all the information you need about your favorite cryptocurrency.
           </Typography>
         </div>
         <Carousel />

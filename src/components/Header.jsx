@@ -52,7 +52,7 @@ const Header = () => {
               className={classes.title}
               variant="h6"
             >
-              Crypto Hunter
+              Crypto Atlas
             </Typography>
             <Select
               variant="outlined"
