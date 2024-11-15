@@ -44,4 +44,4 @@ http://localhost:3000
 ```
 ##ScreenShot Preview
 
-![CryptoWiki Screenshot](assests/front_page_screenshot_img.png)
+![CryptoWiki Screenshot](assets/front_page_screenshot_img.png)
