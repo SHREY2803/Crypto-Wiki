@@ -64,7 +64,7 @@ const CoinsPage = () => {
           method: "GET",
           headers: {
             accept: "application/json",
-            "x-cg-demo-api-key": "CG-fHZvEiW4N7f9vTgL9VGK4uaj",
+            "x-cg-demo-api-key": "CG-gECA9zPeSf1fhNDJYV99QCFP",
           },
         }
       );

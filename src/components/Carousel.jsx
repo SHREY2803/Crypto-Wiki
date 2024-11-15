@@ -35,7 +35,7 @@ const Carousel = () => {
   const fetchCoins = async () => {
     const options = {
       method: 'GET',
-      headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-15RHg87yyjPmx8bJg1dg8cYc'}
+      headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-xDXWrRMNpKzogj8Xew7Afreo'}
     };
     
     fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=gecko_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`, options)

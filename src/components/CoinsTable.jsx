@@ -50,7 +50,7 @@ const CoinsTable = () => {
       method: "GET",
       headers: {
         accept: "application/json",
-        "x-cg-demo-api-key": "CG-15RHg87yyjPmx8bJg1dg8cYc",
+        "x-cg-demo-api-key": "CG-fHZvEiW4N7f9vTgL9VGK4uaj",
       },
     };
 
