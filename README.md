@@ -26,3 +26,7 @@ A sleek and interactive platform to track real-time cryptocurrency prices and vi
    ```bash
    git clone https://github.com/your-username/cryptowiki.git
    cd cryptowiki
+
+2.
+```powershell
+npm install
