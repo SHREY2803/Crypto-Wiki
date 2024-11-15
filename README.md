@@ -24,8 +24,8 @@ A sleek and interactive platform to track real-time cryptocurrency prices and vi
 
 1. Clone the repository:  
 ```powershell
-        git clone https://github.com/your-username/cryptowiki.git
-        cd cryptowiki
+ git clone https://github.com/your-username/cryptowiki.git
+ cd cryptowiki
 ```
 
 2.Install dependencies:
@@ -42,3 +42,6 @@ npm install
 ```powershell
 http://localhost:3000
 ```
+##ScreenShot Preview
+
+![CryptoWiki Screenshot](assests/front_page_screenshot_img.png)
