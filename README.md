@@ -24,7 +24,7 @@ A sleek and interactive platform to track real-time cryptocurrency prices and vi
 
 1. Clone the repository:  
 ```powershell
- https://github.com/SHREY2803/Crypto-Wiki.git
+ git clone https://github.com/SHREY2803/Crypto-Wiki.git
  cd cryptowiki
 ```
 
