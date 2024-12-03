@@ -24,7 +24,7 @@ A sleek and interactive platform to track real-time cryptocurrency prices and vi
 
 1. Clone the repository:  
 ```powershell
- git clone https://github.com/your-username/cryptowiki.git
+ https://github.com/SHREY2803/Crypto-Wiki.git
  cd cryptowiki
 ```
 
@@ -35,7 +35,7 @@ npm install
 
 3.Start the development server:
 ```powershell
-npm install
+npm run dev
 ```
 
 4.Open your browser and navigate to:
